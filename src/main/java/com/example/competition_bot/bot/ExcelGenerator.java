@@ -34,7 +34,6 @@ public class ExcelGenerator {
                 row.createCell(2).setCellValue(user.getUsername());
                 row.createCell(3).setCellValue(user.getFirstName());
                 row.createCell(4).setCellValue(user.getNameSurname());
-
             }
 
             // Write to file
