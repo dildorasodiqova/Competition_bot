@@ -11,6 +11,11 @@ public interface UserService {
 
     UserEntity save(UserEntity currentUser);
 
+    void updatePhone(Long chatId, String phoneNumber);
+
+
+    void updateFullName(Long chatId, String fullName);
+
 
     List<UserEntity> getALL();
 }

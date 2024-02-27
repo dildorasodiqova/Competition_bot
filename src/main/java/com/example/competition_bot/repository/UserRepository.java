@@ -12,7 +12,17 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<UserEntity, Long>{
     @Modifying
     @Transactional
-    @Query(value = "update users set userState  = ?2 where chatId = ?1")
+    @Query(value = "update users u set u.userState  = ?2 where u.chatId = ?1")
     int updateState(Long chatId, UserState userState);
 
+
+    @Modifying
+    @Transactional
+    @Query(value = "update users u set u.phoneNumber = ?2 where u.chatId = ?1")
+    void updatePhone(Long chatId, String phoneNumber);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update users u set u.NameSurname = ?2 where u.chatId = ?1")
+    void updateFullName(Long chatId, String fullName);
 }

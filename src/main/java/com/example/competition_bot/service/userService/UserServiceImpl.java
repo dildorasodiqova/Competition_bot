@@ -29,6 +29,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updatePhone(Long chatId, String phoneNumber) {
+        userRepository.updatePhone(chatId, phoneNumber);
+    }
+
+    @Override
+    public void updateFullName(Long chatId, String fullName) {
+        userRepository.updateFullName(chatId, fullName);
+    }
+
+    @Override
     public List<UserEntity> getALL() {
         return userRepository.findAll();
     }
