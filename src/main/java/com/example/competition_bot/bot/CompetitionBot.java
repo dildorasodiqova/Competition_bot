@@ -42,7 +42,6 @@ public class CompetitionBot extends TelegramLongPollingBot {
 
         UserState userState = UserState.START;
 
-        UserEntity user = new UserEntity();
 
         UserEntity currentUser = userService.getByChatId(chatId);
         if (currentUser == null) {
@@ -70,7 +69,7 @@ public class CompetitionBot extends TelegramLongPollingBot {
             case START -> {
                 execute(botService.joinChannel(chatId.toString()));
 
-
+                userService.updateState(chatId, UserState.JOIN_CHANNEL);
             }case JOIN_CHANNEL -> {
                 execute(botService.getPhoneNumber(chatId.toString()));
 
@@ -78,7 +77,7 @@ public class CompetitionBot extends TelegramLongPollingBot {
             }
             case ENTER_PHONE -> {
                 if (message.hasContact()) {
-                    user.setPhoneNumber(message.getContact().getPhoneNumber());
+                    userService.updatePhone(chatId, message.getContact().getPhoneNumber());
                 }
                 execute(botService.getFullName(chatId.toString()));
 
@@ -86,14 +85,13 @@ public class CompetitionBot extends TelegramLongPollingBot {
             }
             case ENTER_FULL_NAME -> {
                 if (message.hasText()) {
-                    user.setNameSurname(message.getText());
+                    userService.updateFullName(chatId, message.getText());
                     SendPhoto post = botService.getPost(chatId);
                     execute(post);
 
                 }
 
             }
-
         }
     }
 
